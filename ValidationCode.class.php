@@ -5,12 +5,14 @@
  *
  * An open source application development framework for PHP 5.2.1 or newer
  *
- * @package	    system/sadecode	 
+ * @package	    sadecode	 
  * @author	    micool	
- * @copyright	micool.cn
+ * @copyright	    micool.cn
+ * @mail            micool@micool.cn
  * @license		http://app.micool.cn/php/guide/license.html
  * @link		http://app.micool.cn/php
  * @filesource  ValidationCode.class.php
+ * @version         1.0 
  **********************************************************************************
  * defined this active
  * ValidationCode  class   类名
@@ -33,7 +35,7 @@
                   VC_SessionTime 
  ****************************************************************
  */
-if (! defined ( 'IN_MIC_SY' ))
+if (! defined ( 'IN_SYS' ))
 	die ( 'Charles is no such page!' );
 	
 /*
@@ -42,8 +44,9 @@ if (! defined ( 'IN_MIC_SY' ))
  *---------------------------------------------------------------
  *
  */
-error_reporting ( E_ALL );
 
+error_reporting ( E_ALL );//错误调试
+define('Safe_Code_sThis_Path', ereg_replace ( "[/\\]{1,}", '/',  dirname ( __file__ ) ));
 class validationSafeCode {
 	var $VC_Str;
 	var $VC_Font;
@@ -64,7 +67,7 @@ class validationSafeCode {
 	var $VC_SessionName;
 	var $VC_SessionTime;
 	
-	function __construct() {
+	function __construct($SessionSavePath='') {
 		$this->CLength ();
 	}
 	/*
@@ -119,7 +122,7 @@ class validationSafeCode {
      * 1.宋体 2.黑体 3.微软雅黑 4.ARBLI 5.Alabama  后2个英文字体
      */
 	function Cfont() {
-		$dir = PLUGINSPATH . 'Safecode/font/';
+		$dir = Safe_Code_sThis_Path. '/font/';
 		switch ($this->VC_Font) {
 			case 1 :
 				$fontdirname = 'simsun.ttc';
@@ -352,7 +355,7 @@ class validationSafeCode {
 		if (is_writeable ( $this->VC_SessionDir ) && is_readable ( $this->VC_SessionDir )) {
 			session_save_path ( $this->VC_SessionDir );
 		} else {
-			session_save_path ( PLUGINSPATH . 'Safecode/temp' );
+			session_save_path ( Safe_Code_sThis_Path . '/temp' );
 		}
 		//session_start ();
 		session_register ( $this->VC_SessionName );
@@ -366,7 +369,7 @@ class validationSafeCode {
 		
 
 		if ($this->VC_BackGround == 'img') {
-			$source = imagecreatefrompng ( PLUGINSPATH . 'Safecode/img/' . $this->Background () . '.png' );
+			$source = imagecreatefrompng ( Safe_Code_sThis_Path. '/img/' . $this->Background () . '.png' );
 			imagecopyresized ( $im, $source, 0, 0, 0, 0, $this->Imgwidth (), $this->Imgheight (), $this->Imgwidth (), $this->Imgheight () );
 		} else {
 			$bkgarr = $this->ArrColor ( $this->Background () );
@@ -459,7 +462,7 @@ class validationSafeCode {
 		if (is_writeable ( $this->VC_SessionDir ) && is_readable ( $this->VC_SessionDir )) {
 			session_save_path ( $this->VC_SessionDir );
 		} else {
-			session_save_path ( PLUGINSPATH . 'Safecode/temp' );
+			session_save_path (Safe_Code_sThis_Path.'/temp' );
 		}
 		//session_start ();
 		session_register ( $this->VC_SessionName );
@@ -470,7 +473,7 @@ class validationSafeCode {
 		$im = imagecreate ( $this->Imgwidth (), $this->Imgheight () );
 		
 		if ($this->VC_BackGround == 'img') {
-			$source = imagecreatefrompng ( PLUGINSPATH . 'Safecode/img/' . $this->Background () . '.png' );
+			$source = imagecreatefrompng ( Safe_Code_sThis_Path . '/img/' . $this->Background () . '.png' );
 			imagecopyresized ( $im, $source, 0, 0, 0, 0, $this->Imgwidth (), $this->Imgheight (), $this->Imgwidth (), $this->Imgheight () );
 		} else {
 			$bkgarr = $this->ArrColor ( $this->Background () );
