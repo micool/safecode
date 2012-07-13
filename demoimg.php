@@ -94,5 +94,4 @@ switch (@$_GET ['T']) {
         $vsafecode->SetCon('D', 16, 5, 5, '#000000', 0, '#FFFFFF', 70, 30, 'png', 'LDXCG', 50, 5, 3, '', $sessionsavepath, 'SafeCode', 0);
         break;
 }
-echo $vsafecode->SafeCode();
 ?>
