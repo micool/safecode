@@ -78,7 +78,7 @@ class validationSafeCode {
      * Enter config here...
      */
 
-    public function SetCon($C_type='D', $C_fontsize = 12, $C_fontLength=4, $C_font='', $C_fontcolor='', $C_fontalign='', $C_background='', $C_S_W='', $C_S_H='', $C_imgtype='', $C_Switch='', $C_Dott='', $C_Line='', $C_Autosize='', $C_Delstr='', $C_SessionDir='', $C_SessionName='', $C_SessionTime='') {
+    public function SetCon($C_type='D', $C_fontsize = 12, $C_fontLength=4, $C_font='', $C_fontcolor='', $C_fontalign='', $C_background='#FFFFFF', $C_S_W=80, $C_S_H=30, $C_imgtype='png', $C_Switch='', $C_Dott='', $C_Line='', $C_Autosize='', $C_Delstr='', $C_SessionDir='', $C_SessionName='', $C_SessionTime='') {
         $this->VC_Str = $C_type;
         $this->VC_Font = $C_font;
         $this->VC_FontSize = $C_fontsize;

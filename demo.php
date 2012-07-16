@@ -19,11 +19,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>SAFE CODE</title>
 <script>
-//重载验证码
+//重载验证码 
 function reloadcode(id){
 var verify=document.getElementById('imgcode'+id);
 var randnub=Math.ceil(Math.random()*1000000000);
 verify.setAttribute('src','demoimg.php?T='+id+'&t='+randnub);
+}
+//点击刷新验证码 伪静态例
+function reloadcodeRewrite(id){
+var verify=document.getElementById('rimgcode'+id);
+var randnub=Math.ceil(Math.random()*1000000000);
+verify.setAttribute('src','img'+id+'?t='+randnub);
 }
 </script>
 </head>
@@ -32,6 +38,9 @@ verify.setAttribute('src','demoimg.php?T='+id+'&t='+randnub);
   
 上一个验证码：<?php session_start(); echo @$_SESSION['SafeCode1'];?><br />
 <IMG id="imgcode1" src="demoimg.php?T=1" align="absmiddle" onclick="reloadcode('1');" /><br />
+伪静态方法获取<br />
+<IMG id="rimgcode1" src="img1" align="absmiddle" onclick="reloadcodeRewrite('1');" /><br />
+
 上一个验证码：<?php  echo @$_SESSION['SafeCode2'];?><br />
 <IMG id="imgcode2" src="demoimg.php?T=2" align="absmiddle" onclick="reloadcode('2');" /><br />
 上一个验证码：<?php  echo @$_SESSION['SafeCode3'];?><br />
