@@ -36,9 +36,11 @@ verify.setAttribute('src','img'+id+'?t='+randnub);
 
 <body>
   
-上一个验证码：<?php session_start(); echo @$_SESSION['SafeCode1'];?><br />
+
 <IMG id="imgcode1" src="demoimg.php?T=1" align="absmiddle" onclick="reloadcode('1');" /><br />
-伪静态方法获取<br />
+上面的方法为伪静态方法获取<br />
+<br />
+上一个验证码：<?php session_start(); echo @$_SESSION['SafeCode1'];?><br />
 <IMG id="rimgcode1" src="img1" align="absmiddle" onclick="reloadcodeRewrite('1');" /><br />
 
 上一个验证码：<?php  echo @$_SESSION['SafeCode2'];?><br />

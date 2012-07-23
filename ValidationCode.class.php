@@ -47,7 +47,7 @@ if (!defined('IN_SYS'))
  */
 
 error_reporting(E_ALL); //错误调试
-define('Safe_Code_sThis_Path', ereg_replace("[/\\]{1,}", '/', dirname(__file__)));
+define('Safe_Code_sThis_Path', preg_replace("/[\/\\\\]{1,}/", '/', dirname(__file__)));
 
 class validationSafeCode {
 
@@ -69,6 +69,8 @@ class validationSafeCode {
     var $VC_SessionDir;
     var $VC_SessionName;
     var $VC_SessionTime;
+    var $VC_Session_Name;
+    private $VC_SESSION;
 
     function __construct($SessionSavePath = '') {
         $this->CLength();
@@ -78,7 +80,7 @@ class validationSafeCode {
      * Enter config here...
      */
 
-    public function SetCon($C_type='D', $C_fontsize = 12, $C_fontLength=4, $C_font='', $C_fontcolor='', $C_fontalign='', $C_background='#FFFFFF', $C_S_W=80, $C_S_H=30, $C_imgtype='png', $C_Switch='', $C_Dott='', $C_Line='', $C_Autosize='', $C_Delstr='', $C_SessionDir='', $C_SessionName='', $C_SessionTime='') {
+    public function SetCon($C_type = 'D', $C_fontsize = 12, $C_fontLength = 4, $C_font = '', $C_fontcolor = '', $C_fontalign = '', $C_background = '#FFFFFF', $C_S_W = 80, $C_S_H = 30, $C_imgtype = 'png', $C_Switch = '', $C_Dott = '', $C_Line = '', $C_Autosize = '', $C_Delstr = '', $C_SessionInfo = array()) {
         $this->VC_Str = $C_type;
         $this->VC_Font = $C_font;
         $this->VC_FontSize = $C_fontsize;
@@ -94,10 +96,32 @@ class validationSafeCode {
         $this->VC_Line = $C_Line;
         $this->VC_Autosize = $C_Autosize;
         $this->VC_Delstr = $C_Delstr;
-        $this->VC_SessionDir = $C_SessionDir;
-        $this->VC_SessionName = $C_SessionName;
-        $this->VC_SessionTime = $C_SessionTime;
+        $this->VC_SESSION = $C_SessionInfo;
+        $this->VC_SessionDir = $C_SessionInfo[0];
+        $this->VC_SessionName = $C_SessionInfo[3];
+        $this->VC_SessionTime = $C_SessionInfo[2];
+        $this->VC_Session_Name = $C_SessionInfo[1];
         echo $this->SafeCode();
+    }
+
+    //SESSION 
+    private function session() {
+        if (!empty($this->VC_SESSION)) {
+            if ($this->VC_SessionDir != 'default') {
+                if (is_writeable($this->VC_SessionDir) && is_readable($this->VC_SessionDir)) {
+                    session_save_path($this->VC_SessionDir);
+                } else {
+                    session_save_path(Safe_Code_sThis_Path . '/temp');
+                }
+                if (!empty($this->VC_SessionTime)) {
+                    session_set_cookie_params($this->VC_SessionTime);
+                }
+                if (!empty($this->VC_Session_Name)) {
+                    session_name($this->VC_Session_Name);
+                }
+                session_start();
+            }
+        }
     }
 
     /*
@@ -371,14 +395,7 @@ class validationSafeCode {
      */
 
     private function Chinese() {
-        if (is_writeable($this->VC_SessionDir) && is_readable($this->VC_SessionDir)) {
-            session_save_path($this->VC_SessionDir);
-        } else {
-            session_save_path(Safe_Code_sThis_Path . '/temp');
-        }
-        //session_start ();
-        session_register($this->VC_SessionName);
-        //session_register ( $this->VC_SessionName . 'time' );
+        $this->session();
         // 新建一个基于调色板的图像
         header("Content-type: image/" . $this->ImgType());
         $im = imagecreate($this->Imgwidth(), $this->Imgheight());
@@ -475,16 +492,7 @@ class validationSafeCode {
      */
 
     private function EnglishDig() {
-        if (is_writeable($this->VC_SessionDir) && is_readable($this->VC_SessionDir)) {
-            session_save_path($this->VC_SessionDir);
-        } else {
-            session_save_path(Safe_Code_sThis_Path . '/temp');
-        }
-        //session_start ();
-        session_register($this->VC_SessionName);
-        //session_register ( $this->VC_SessionName . 'time' );
-
-
+        $this->session();
         header("Content-type: image/" . $this->VC_ImgType);
         $im = imagecreate($this->Imgwidth(), $this->Imgheight());
 

@@ -42,52 +42,68 @@
  * 十七：Session名称  
  * 十八：Session时间 
  * ***************************************************
+ * 2012-7-23 修复高版本php兼容bug
+ * 优化session模块
+ * $sessioninfo的赋值为array(); 
+ * 例：array ('default', '', '', 'SafeCode1' ); 分别是：存储位置 ，要制定的session_name,session_time,session需要赋值的键值。 default 就的默认环境存储位
  */
 //标注在最前页
 define('IN_SYS', true);
 require 'ValidationCode.class.php';
 $vsafecode = new validationSafeCode ( );
-session_start();
-$sessionsavepath = 'default';//可自定义session位置
+session_start();//此处开启session是为了demo显示验证码
 switch (@$_GET ['T']) {
     case 1 :
-        $vsafecode->SetCon('CS', 16, 2, 1, '#000000', 0, 'img', 66, 28, 'png', 'LDXG', 40, 3, 3, '', $sessionsavepath, 'SafeCode1', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCode1' );
+        $vsafecode->SetCon('CS', 16, 2, 1, '#000000', 0, 'img', 66, 28, 'png', 'LDXG', 40, 3, 3, '', $sessioninfo);
         break;
     case 2 :
-        $vsafecode->SetCon('CT', 14, 2, 2, '#000000', 0, 'img', 66, 28, 'png', 'LDXG', 40, 3, 3, '', $sessionsavepath, 'SafeCode2', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCode2' );
+        $vsafecode->SetCon('CT', 14, 2, 2, '#000000', 0, 'img', 66, 28, 'png', 'LDXG', 40, 3, 3, '', $sessioninfo);
         break;
     case 3 :
-        $vsafecode->SetCon('E', 14, 5, 5, '#000000', 0, 'img', 66, 28, 'png', 'LDXCG', 50, 5, 3, '', $sessionsavepath, 'SafeCode3', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCode3' );
+        $vsafecode->SetCon('E', 14, 5, 5, '#000000', 0, 'img', 66, 28, 'png', 'LDXCG', 50, 5, 3, '', $sessioninfo);
         break;
     case 4 :
-        $vsafecode->SetCon('e', 14, 5, 3, '#000000', 0, 'img', 66, 28, 'png', 'LDXCG', 50, 5, 3, '', $sessionsavepath, 'SafeCode4', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCode4' );
+        $vsafecode->SetCon('e', 14, 5, 3, '#000000', 0, 'img', 66, 28, 'png', 'LDXCG', 50, 5, 3, '', $sessioninfo);
         break;
     case 5 :
-        $vsafecode->SetCon('EeD', 14, 5, 3, '#000000', 0, '#FFFFFF', 66, 28, 'png', 'RLDXCG', 50, 5, 3, '', $sessionsavepath, 'SafeCode5', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCode5' );
+        $vsafecode->SetCon('EeD', 14, 5, 3, '#000000', 0, '#FFFFFF', 66, 28, 'png', 'RLDXCG', 50, 5, 3, '', $sessioninfo);
         break;
     case 6 :
-        $vsafecode->SetCon('ED', 15, 4, 5, '#000000', 0, '#FFFFFF', 70, 28, 'png', 'LDXCG', 50, 5, 3, '', $sessionsavepath, 'SafeCode6', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCode6' );
+        $vsafecode->SetCon('ED', 15, 4, 5, '#000000', 0, '#FFFFFF', 70, 28, 'png', 'LDXCG', 50, 5, 3, '', $sessioninfo);
         break;
     case 7 :
-        $vsafecode->SetCon('CS', 20, 5, 1, '#000000', 0, '#FFFFFF', 300, 60, 'png', 'RLDXCG', 50, 5, 3, '', $sessionsavepath, 'SafeCode7', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCode7' );
+        $vsafecode->SetCon('CS', 20, 5, 1, '#000000', 0, '#FFFFFF', 300, 60, 'png', 'RLDXCG', 50, 5, 3, '', $sessioninfo);
         break;
     case 'getpass' :
-        $vsafecode->SetCon('D', 14, 5, 5, '#5364A5', 0, '#FFFFFF', 70, 30, 'png', 'LDG', 70, 8, 1, '', $sessionsavepath, 'SafeCodegetpass', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCodegetpass' );
+        $vsafecode->SetCon('D', 14, 5, 5, '#5364A5', 0, '#FFFFFF', 70, 30, 'png', 'LDG', 70, 8, 1, '', $sessioninfo);
         break;
     case 'login' :
-        $vsafecode->SetCon('eD', 14, 4, 5, '#5399A5', 0, '#FFFFFF', 100, 30, 'png', 'RLDXCG', 70, 6, 9, '', $sessionsavepath, 'SafeCodelogin', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCodelogin' );
+        $vsafecode->SetCon('eD', 14, 4, 5, '#5399A5', 0, '#FFFFFF', 100, 30, 'png', 'RLDXCG', 70, 6, 9, '', $sessioninfo);
         break;
     case 'getpro' :
-        $vsafecode->SetCon('D', 15, 4, 5, '#000000', 0, '#FFFFFF', 70, 30, 'png', 'LDXCG', 50, 5, 3, '', $sessionsavepath, 'SafeCodegetpro', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCodegetpro' );
+        $vsafecode->SetCon('D', 15, 4, 5, '#000000', 0, '#FFFFFF', 70, 30, 'png', 'LDXCG', 50, 5, 3, '', $sessioninfo);
         break;
     case 'useredit' :
-        $vsafecode->SetCon('D', 15, 3, 4, '#5364A5', 0, '#FFFFFF', 50, 30, 'png', 'RLDXG', 50, 5, 0, '', $sessionsavepath, 'SafeCodeuseredit', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCodeuseredit' );
+        $vsafecode->SetCon('D', 15, 3, 4, '#5364A5', 0, '#FFFFFF', 50, 30, 'png', 'RLDXG', 50, 5, 0, '', $sessioninfo);
         break;
     case 'reg' :
-        $vsafecode->SetCon('D', 16, 5, 4, '#5364A5', 0, 'img', 75, 33, 'png', 'LDG', 60, 6, 4, '', $sessionsavepath, 'SafeCodereg', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCodereg' );
+        $vsafecode->SetCon('D', 16, 5, 4, '#5364A5', 0, 'img', 75, 33, 'png', 'LDG', 60, 6, 4, '', $sessioninfo);
         break;
     default :
-        $vsafecode->SetCon('D', 16, 5, 5, '#000000', 0, '#FFFFFF', 70, 30, 'png', 'LDXCG', 50, 5, 3, '', $sessionsavepath, 'SafeCode', 0);
+        $sessioninfo = array ('default', '', '', 'SafeCode' );
+        $vsafecode->SetCon('D', 16, 5, 5, '#000000', 0, '#FFFFFF', 70, 30, 'png', 'LDXCG', 50, 5, 3, '', $sessioninfo);
         break;
 }
 ?>
