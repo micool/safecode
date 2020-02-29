@@ -3,22 +3,27 @@ safecode
 
 验证码 支持中文验证码
 
+实例方法
 
 session_start();
+
 define('IN_SYS', true);
+
 require_once 'ValidationCode.class.php';
- 
+
 $vsafecode = new validationSafeCode();
+
 $sessionsavepath = 'default';
- 
+
 $vsafecode->SetCon('eD', 14, 4, 5, '#000000', 0, '#FFFFFF', 80, 30, 'png', 'RLDXCG', 100, 8, 9, '', $sessionsavepath, 'SafeCodelogin', 0);
-/*
+
+
  * 参数说明：
  * 第一个参数：（英文数字可叠加）
  * 		CS:	简体中文
  * 		CT：繁体中文
- * 		E：	大写英文
- * 		e： 小写英文
+ * 		E：大写英文
+ * 		e：小写英文
  * 		D: 数字
  * 第二个参数：字体大小
  * 第三个参数：随机字符长度
@@ -37,4 +42,4 @@ $vsafecode->SetCon('eD', 14, 4, 5, '#000000', 0, '#FFFFFF', 80, 30, 'png', 'RLDX
  * 第十六个参数：SESSION位置：default 表示使用本身的php环境默认位置
  * 第十七个参数：SESSION名称
  * 第十八个参数：SESSION时间
- */
+
